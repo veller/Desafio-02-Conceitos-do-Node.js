@@ -18,7 +18,7 @@ app.post("/repositories", (request, response) => {
   const repo = { id: uuid(), title, url, techs, likes: 0 };
   repositories.push(repo);
 
-  return response.json(repositories);
+  return response.json(repo);
 });
 
 app.put("/repositories/:id", (request, response) => {
@@ -33,7 +33,7 @@ app.put("/repositories/:id", (request, response) => {
 
   const { likes } = repositories.find((repo) => repo.id === id);
 
-  repositories[repoIndex] = { title, url, techs, likes };
+  repositories[repoIndex] = { id, title, url, techs, likes };
 
   return response.json(repositories[repoIndex]);
 });
@@ -49,7 +49,7 @@ app.delete("/repositories/:id", (request, response) => {
 
   repositories.splice(repoIndex, 1);
 
-  return response.json(repositories);
+  return response.status(204).send();
 });
 
 app.post("/repositories/:id/like", (request, response) => {
